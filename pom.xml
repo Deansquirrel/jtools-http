@@ -5,7 +5,7 @@
   <groupId>com.github.deansquirrel</groupId>
   <artifactId>tools-http</artifactId>
 <!--   <version>0.0.0</version>-->
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <name>tools-http</name>
   <url>https://github.com/Deansquirrel/jtools-http</url>
   <description>tools http</description>

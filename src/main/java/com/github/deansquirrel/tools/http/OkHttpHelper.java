@@ -1,7 +1,11 @@
 package com.github.deansquirrel.tools.http;
 
+//import okhttp3.*;
+
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+
+
 
 import java.io.File;
 import java.io.IOException;
@@ -53,10 +57,6 @@ public class OkHttpHelper {
     public static String doGet(String url, Map<String, String> headers, Map<String, String> params) throws IOException {
         return execute(getGetRequest(url, headers, params));
     }
-
-//    private static Request getGetRequest(HttpUrl httpUrl, Map<String, String> headers, Map<String, String> params) {
-//        return getRequest(httpUrl, METHOD_GET, getHeaders(headers), null);
-//    }
 
     public static void doGetAsync(String url, ICallback callback) {
         doGetAsync(url, null, null, callback);
