@@ -1,11 +1,6 @@
 package com.github.deansquirrel.tools.http;
 
-//import okhttp3.*;
-
 import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
-
-
 
 import java.io.File;
 import java.io.IOException;
@@ -248,19 +243,19 @@ public class OkHttpHelper {
     }
 
     public static RequestBody getRequestBody(MediaType contentType, String content) {
-        return RequestBody.Companion.create(content, contentType);
+        return RequestBody.create(contentType, content);
     }
 
     public static RequestBody getRequestBodyJSON(String content) {
-        return RequestBody.Companion.create(content, JSON);
+        return RequestBody.create(JSON, content);
     }
 
     public static RequestBody getRequestBodyXML(String content) {
-        return RequestBody.Companion.create(content, XML);
+        return RequestBody.create(XML, content);
     }
 
     public static RequestBody getRequestBody(File file) {
-        return RequestBody.Companion.create(file, FILE);
+        return RequestBody.create(FILE, file);
     }
 
     public static FormBody getRequestBody(Map<String, String> map) {
@@ -333,12 +328,12 @@ public class OkHttpHelper {
     public static void execute(Request request, ICallback callback) {
         getOkHttpClient().newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            public void onFailure(Call call, IOException e) {
                 callback.onFailure(call, e);
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 if (response.body() != null) {
                     try {
                         callback.onResponse(call, response.body().string());

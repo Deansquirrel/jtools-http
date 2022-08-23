@@ -5,7 +5,7 @@
   <groupId>com.github.deansquirrel</groupId>
   <artifactId>tools-http</artifactId>
 <!--   <version>0.0.0</version>-->
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>tools-http</name>
   <url>https://github.com/Deansquirrel/jtools-http</url>
   <description>tools http</description>
@@ -47,7 +47,8 @@
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp</artifactId>
-      <version>4.10.0</version>
+      <version>3.14.9</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
