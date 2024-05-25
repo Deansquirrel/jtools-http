@@ -9,8 +9,8 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <artifactId>tools-http</artifactId>
-<!--  <version>0.0.0</version>-->
-  <version>1.0.0</version>
+  <version>0.0.0</version>
+<!--  <version>1.0.0</version>-->
   <name>tools-http</name>
   <url>https://github.com/Deansquirrel/jtools-http</url>
   <description>tools http</description>
