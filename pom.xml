@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.github.deansquirrel</groupId>
     <artifactId>tools-parent</artifactId>
-    <version>0.0.2</version>
+    <version>1.0.0</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <artifactId>tools-http</artifactId>
-<!--   <version>0.0.0</version>-->
-  <version>0.1.0</version>
+<!--  <version>0.0.0</version>-->
+  <version>1.0.0</version>
   <name>tools-http</name>
   <url>https://github.com/Deansquirrel/jtools-http</url>
   <description>tools http</description>
@@ -53,6 +53,11 @@
       <artifactId>okhttp</artifactId>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <profiles>
@@ -71,17 +76,6 @@
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
           </plugin>
-<!--          <plugin>-->
-<!--            <groupId>org.sonatype.plugins</groupId>-->
-<!--            <artifactId>nexus-staging-maven-plugin</artifactId>-->
-<!--            <version>1.6.7</version>-->
-<!--            <extensions>true</extensions>-->
-<!--            <configuration>-->
-<!--              <serverId>ossrh</serverId>-->
-<!--              <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-<!--              <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
-<!--            </configuration>-->
-<!--          </plugin>-->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>

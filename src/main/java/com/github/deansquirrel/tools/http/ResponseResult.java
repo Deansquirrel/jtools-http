@@ -7,9 +7,9 @@ public class ResponseResult<T> {
     public static String MSG_SUCCESS = "成功";
     public static String MSG_FAIL = "失败";
 
-    private int code = 0;
-    private String message;
-    private T data;
+    protected int code = 0;
+    protected String message;
+    protected T data;
 
     public ResponseResult() {
     }

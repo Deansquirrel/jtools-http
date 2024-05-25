@@ -1,6 +1,9 @@
 package com.github.deansquirrel.tools.http;
 
 import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +22,8 @@ public class OkHttpHelper {
     private static final MediaType XML = MediaType.parse("application/xml; charset=utf-8");
     private static final MediaType FORM_DATA = MediaType.parse("multipart/form-data");
     private static final MediaType FILE = MediaType.parse("application/octet-stream");
+
+    private static final Logger logger = LoggerFactory.getLogger(OkHttpHelper.class);
 
     private OkHttpHelper(){}
 
@@ -228,11 +233,6 @@ public class OkHttpHelper {
             return null;
         }
         return Headers.of(headersMap);
-//        Headers.Builder headers = new Headers.Builder();
-//        for(String k : headersMap.keySet()) {
-//            headers.add(k, headersMap.get(k));
-//        }
-//        return headers.build();
     }
 
     public static Headers getHeaders(Headers headers) {
@@ -243,19 +243,19 @@ public class OkHttpHelper {
     }
 
     public static RequestBody getRequestBody(MediaType contentType, String content) {
-        return RequestBody.create(contentType, content);
+        return RequestBody.Companion.create(content, contentType);
     }
 
     public static RequestBody getRequestBodyJSON(String content) {
-        return RequestBody.create(JSON, content);
+        return RequestBody.Companion.create(content, JSON);
     }
 
     public static RequestBody getRequestBodyXML(String content) {
-        return RequestBody.create(XML, content);
+        return RequestBody.Companion.create(content, XML);
     }
 
     public static RequestBody getRequestBody(File file) {
-        return RequestBody.create(FILE, file);
+        return RequestBody.Companion.create(file, FILE);
     }
 
     public static FormBody getRequestBody(Map<String, String> map) {
@@ -326,17 +326,19 @@ public class OkHttpHelper {
     }
 
     public static void execute(Request request, ICallback callback) {
+        if(request == null) {
+            logger.warn("request is null");
+            return;
+        }
+
         getOkHttpClient().newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                callback.onFailure(call, e);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.body() != null) {
                     try {
-                        callback.onResponse(call, response.body().string());
+                        if(callback != null) {
+                            callback.onResponse(call, response.body().string());
+                        }
                     } catch (IOException e) {
                         onFailure(call, e);
                     }
@@ -344,6 +346,13 @@ public class OkHttpHelper {
                     onFailure(call, new IOException("返回数据为空"));
                 }
                 response.close();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                if(callback != null) {
+                    callback.onFailure(call, e);
+                }
             }
         });
     }
